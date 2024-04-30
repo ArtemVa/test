@@ -38,7 +38,6 @@ async function login(req, res){
          return res.json({accessToken, refreshToken});
         }
         catch(e){
-            console.log(e);
             res.status(400).json({message: 'Registration error'});
         }
     }

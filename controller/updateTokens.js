@@ -8,7 +8,7 @@ async function refresh(req,res){
         try{
             const refreshToken = req.cookies['refreshToken'];
             if (!refreshToken) {
-                return res.status(401).send('Access Denied. No refresh token provided.');
+                return res.status(401).send('Токен не предоставлен!');
               }
             const decoded = jwt.verify(refreshToken, secretRefresh);
             const newRefreshToken = generateRefreshToken(decoded.payload);
@@ -17,8 +17,7 @@ async function refresh(req,res){
 
             return res.json({newRefreshToken, accessToken});
         } catch(e){
-            console.log(e);
-            return res.send(e)
+            return res.status(406).send({message: 'Вы не авторизованы!'})
         }
 }
 module.exports = refresh;
