@@ -5,7 +5,9 @@ const express = require('express');
 const authRouter = require('./routes/authRouter');
 const app = express();
 const PORT = process.env.PORT;
-const url = process.env.url;
+const MONGODB_URI = process.env.MONGODB_URI;
+
+console.log(PORT, MONGODB_URI);
 
 class Server{
     constructor(port, url){
@@ -13,7 +15,9 @@ class Server{
         this.url = url;
     }
     
+    
     async startServer(){
+    console.log(PORT, MONGODB_URI);
     try {
         try{
             await mongoose.connect(this.url);
@@ -22,8 +26,9 @@ class Server{
             console.log(e);
         }
         app.use(express.json());
+        app.use(express.urlencoded({ extended: true }));
         app.use(cookieParser());
-        // app.use('/auth', authRouter);
+        app.use('', authRouter);
 
         app.listen(this.port, (res, req) => {
             console.log('server connecting');   
@@ -34,12 +39,10 @@ class Server{
             res.send('start')
         })
 
-        app.use('', authRouter);
-
 
     } catch (e) {
         return res.status(500).send({message: 'Сервер не запустился'})
     }
 }
 }
-module.exports = new Server(PORT, url);
+module.exports = new Server(PORT, MONGODB_URI);

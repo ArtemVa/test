@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../model/User')
 require('dotenv').config();
-const secret = process.env.secret;
-const secretRefresh = process.env.refresh_secret;
+const secret = process.env.SECRET;
+const secretRefresh = process.env.REFRESH_TOKEN;
 
 const generateAccessToken = id => {
     const payload = {id};

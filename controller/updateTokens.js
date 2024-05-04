@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const {generateAccessToken} = require('./userLogin');
 const {generateRefreshToken} = require('./userLogin');
 require('dotenv').config();
-const secretRefresh = process.env.refresh_secret;
+const secretRefresh = process.env.REFRESH_TOKEN;
 
 async function refresh(req,res){
         try{
